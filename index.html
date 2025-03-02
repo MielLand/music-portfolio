@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Composer Portfolio</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <style>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Music Composer Portfolio</title>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+        <style>
         :root {
             --primary-color: #2e7d32;
             --secondary-color: #a5d6a7;
@@ -523,210 +524,248 @@
             }
         }
     </style>
-</head>
-<body>
-    <canvas id="bgCanvas"></canvas>
-    
-    <nav>
-        <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#work">Work</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
-    
-    <header id="home">
-        <div class="header-content">
-            <h1>Miel</h1>
-            <p class="subtitle">Music Composer & Producer</p>
-            <div class="visualizer" id="header-visualizer">
-                <!-- Dynamic audio visualizer bars added via JS -->
-            </div>
-        </div>
-        <div class="scroll-down">
-            <span>Scroll Down</span>
-            <div class="scroll-arrow"></div>
-        </div>
-    </header>
-    
-    <section id="about">
-        <div class="container">
-            <h2>About Me</h2>
-            <div class="bio">
-                <img src="BulbLogo.png" alt="Profile Picture" class="bio-image">
-                <div class="bio-text">
-                    <p>Welcome to my portfolio! I'm a passionate music composer and producer with a focus on creating immersive and emotionally resonant music. My journey in music began 2 years ago, and I've since developed a great sense of creating music.</p>
-                    
-                    <p>I specialize in a diverse amount of genres. Each project is an opportunity for me to push creative boundaries and create experiences that leave an impression.</p>
-                    
-                    <p>I ensure that every composition not only meets technical standards but also captures the emotional essence of your vision. Whether you're working on a film, game, advertisement, or personal project, I bring dedication and artistry to every piece.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <div class="section-divider">
-        <svg viewBox="0 0 1400 150" preserveAspectRatio="none">
-            <path class="wave" d="M0,64 C300,150 400,0 512,64 C614,128 700,20 900,64 C1100,108 1200,150 1400,100 L1400,370 L0,370 Z"></path>
-        </svg>
-    </div>
-    
-    <section id="skills" style="background-color: rgba(10, 30, 15, 0.7);">
-        <div class="container">
-            <h2>Skills & Expertise</h2>
-            <div class="skills">
-                <div class="skill-category">
-                    <h3>Composition</h3>
-                    <div class="skill-item">Game Soundtracks</div>
-                    <div class="skill-item">Film Soundtracks</div>
-                    <div class="skill-item">Complex Chord Progressions</div>
-                    <div class="skill-item">Orchestration & Layering</div>
-                    <div class="skill-item">Melodic & Harmonic Development</div>
-                </div>
-                <div class="skill-category">
-                    <h3>Production</h3>
-                    <div class="skill-item">DAW Usage (FL Studio)</div>
-                    <div class="skill-item">Spatial & Adaptive Audio</div>
-                </div>                
-            </div>
-        </div>
-    </section>
-    
-    <div class="section-divider" style="transform: rotate(180deg);">
-        <svg viewBox="0 0 1400 150" preserveAspectRatio="none">
-            <path class="wave" d="M0,64 C300,150 400,0 512,64 C614,128 700,20 900,64 C1100,108 1200,150 1400,100 L1400,370 L0,370 Z"></path>
-        </svg>
-    </div>
-    
-    <section id="work">
-        <div class="container">
-            <h2>Featured Works</h2>
-            <div class="tracks">
-                <!-- <img src="/api/placeholder/350/220" alt="Track 1 Artwork" class="track-image"> -->
-                <!-- Track 1 -->
-                <div class="track-card">
-                    <div class="track-overlay"></div>
-                    <div class="track-details">
-                        <h3 class="track-title">Tokyo's Nemesis</h3>
-                        <p class="track-info">Japanese-style soundtrack for horror game • 2024</p>
-                        <p><strong><em>Rights are reserved - you may not use this track</em></strong></p>
-                        <audio controls class="audio-player">
-                            <source src="#" type="Tokyo's Nemesis.wav">
-                            Your browser does not support the audio element.
-                        </audio>
-                        <div class="visualizer">
-                            <!-- Dynamic audio visualizer bars added via JS -->
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Track 2 -->
-                <div class="track-card">
-                    <div class="track-overlay"></div>
-                    <div class="track-details">
-                        <h3 class="track-title">Frozen Embers</h3>
-                        <p class="track-info">Ambient soundtrack for survival game • 2024</p>
-                        <p><strong><em>Rights are reserved - you may not use this track</em></strong></p>
-                        <audio controls class="audio-player">
-                            <source src="#" type="Frozen Embers.wav">
-                            Your browser does not support the audio element.
-                        </audio>
-                        <div class="visualizer">
-                            <!-- Dynamic audio visualizer bars added via JS -->
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Track 3 -->
-                <div class="track-card">
-                    <div class="track-overlay"></div>
-                    <div class="track-details">
-                        <h3 class="track-title">Innovating Better Worlds</h3>
-                        <p class="track-info">Soundtrack for horror/adventure game • 2024</p>
-                        <p><strong><em>Rights are reserved - you may not use this track</em></strong></p>
-                        <audio controls class="audio-player">
-                            <source src="#" type="Innovating Better Worlds.wav">
-                            Your browser does not support the audio element.
-                        </audio>
-                        <div class="visualizer">
-                            <!-- Dynamic audio visualizer bars added via JS -->
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Track 4 -->
-                <div class="track-card">
-                    <div class="track-overlay"></div>
-                    <div class="track-details">
-                        <h3 class="track-title">The Light</h3>
-                        <p class="track-info">Soundtrack for personal project • 2025</p>
-                        <p><strong><em>Rights are reserved - you may not use this track</em></strong></p>
-                        <audio controls class="audio-player">
-                            <source src="#" type="The Light.wav">
-                            Your browser does not support the audio element.
-                        </audio>
-                        <div class="visualizer">
-                            <!-- Dynamic audio visualizer bars added via JS -->
-                        </div>
-                    </div>
-                </div>
+    </head>
+    <body>
+        <canvas id="bgCanvas"></canvas>
 
-                <!-- Track 5 -->
-                <div class="track-card">
-                    <div class="track-overlay"></div>
-                    <div class="track-details">
-                        <h3 class="track-title">For The Better</h3>
-                        <p class="track-info">Soundtrack for personal project • 2025</p>
-                        <p><strong><em>Rights are reserved - you may not use this track</em></strong></p>
-                        <audio controls class="audio-player">
-                            <source src="#" type="For The Better.wav">
-                            Your browser does not support the audio element.
-                        </audio>
-                        <div class="visualizer">
-                            <!-- Dynamic audio visualizer bars added via JS -->
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#work">Work</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+
+        <header id="home">
+            <div class="header-content">
+                <h1>Miel</h1>
+                <p class="subtitle">Music Composer & Producer</p>
+                <div class="visualizer" id="header-visualizer">
+                    <!-- Dynamic audio visualizer bars added via JS -->
+                </div>
+            </div>
+            <div class="scroll-down">
+                <span>Scroll Down</span>
+                <div class="scroll-arrow"></div>
+            </div>
+        </header>
+
+        <section id="about">
+            <div class="container">
+                <h2>About Me</h2>
+                <div class="bio">
+                    <img src="BulbLogo.png" alt="Profile Picture"
+                        class="bio-image">
+                    <div class="bio-text">
+                        <p>Welcome to my portfolio! I'm a passionate music
+                            composer and producer with a focus on creating
+                            immersive and emotionally resonant music. My journey
+                            in music began 2 years ago, and I've since developed
+                            a great sense of creating music.</p>
+
+                        <p>I specialize in a diverse amount of genres. Each
+                            project is an opportunity for me to push creative
+                            boundaries and create experiences that leave an
+                            impression.</p>
+
+                        <p>I ensure that every composition not only meets
+                            technical standards but also captures the emotional
+                            essence of your vision. Whether you're working on a
+                            film, game, advertisement, or personal project, I
+                            bring dedication and artistry to every piece.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider">
+            <svg viewBox="0 0 1400 150" preserveAspectRatio="none">
+                <path class="wave"
+                    d="M0,64 C300,150 400,0 512,64 C614,128 700,20 900,64 C1100,108 1200,150 1400,100 L1400,370 L0,370 Z"></path>
+            </svg>
+        </div>
+
+        <section id="skills" style="background-color: rgba(10, 30, 15, 0.7);">
+            <div class="container">
+                <h2>Skills & Expertise</h2>
+                <div class="skills">
+                    <div class="skill-category">
+                        <h3>Composition</h3>
+                        <div class="skill-item">Game Soundtracks</div>
+                        <div class="skill-item">Film Soundtracks</div>
+                        <div class="skill-item">Complex Chord Progressions</div>
+                        <div class="skill-item">Orchestration & Layering</div>
+                        <div class="skill-item">Melodic & Harmonic
+                            Development</div>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Production</h3>
+                        <div class="skill-item">DAW Usage (FL Studio)</div>
+                        <div class="skill-item">Spatial & Adaptive Audio</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider" style="transform: rotate(180deg);">
+            <svg viewBox="0 0 1400 150" preserveAspectRatio="none">
+                <path class="wave"
+                    d="M0,64 C300,150 400,0 512,64 C614,128 700,20 900,64 C1100,108 1200,150 1400,100 L1400,370 L0,370 Z"></path>
+            </svg>
+        </div>
+
+        <section id="work">
+            <div class="container">
+                <h2>Featured Works</h2>
+                <div class="tracks">
+                    <!-- <img src="/api/placeholder/350/220" alt="Track 1 Artwork" class="track-image"> -->
+                    <!-- Track 1 -->
+                    <div class="track-card">
+                        <div class="track-overlay"></div>
+                        <div class="track-details">
+                            <h3 class="track-title">Tokyo's Nemesis</h3>
+                            <p class="track-info">Japanese-style soundtrack for
+                                horror game • 2024</p>
+                            <p><strong><em>Rights are reserved - you may not use
+                                        this track</em></strong></p>
+                            <audio controls class="audio-player">
+                                <source src="Tokyo's Nemesis.wav"
+                                    type="audio/wav">
+                                Your browser does not support the audio element.
+                            </audio>
+                            <div class="visualizer">
+                                <!-- Dynamic audio visualizer bars added via JS -->
+                            </div>
                         </div>
                     </div>
-                </div>                
-            </div>
-        </div>
-    </section>
-    
-    <div class="section-divider">
-        <svg viewBox="0 0 1400 150" preserveAspectRatio="none">
-            <path class="wave" d="M0,64 C300,150 400,0 512,64 C614,128 700,20 900,64 C1100,108 1200,150 1400,100 L1400,370 L0,370 Z"></path>
-        </svg>
-    </div>
-    
-    <section id="contact" style="background-color: rgba(10, 30, 15, 0.7);">
-        <div class="container">
-            <h2>Connect With Me</h2>
-            <div class="contact-section">
-                <p class="contact-description">Interested in working together? Have questions about my music? I'm always open to new collaborations and exciting projects. Reach out to me on Discord!</p>
-                
-                <div class="discord-contact">
-                    <img src="/api/placeholder/50/50" alt="Discord Logo" class="discord-logo">
-                    <div class="discord-username">miel._.</div>
+
+                    <!-- Track 2 -->
+                    <div class="track-card">
+                        <div class="track-overlay"></div>
+                        <div class="track-details">
+                            <h3 class="track-title">Frozen Embers</h3>
+                            <p class="track-info">Ambient soundtrack for
+                                survival game • 2024</p>
+                            <p><strong><em>Rights are reserved - you may not use
+                                        this track</em></strong></p>
+                            <audio controls class="audio-player">
+                                <source src="Frozen Embers.wav"
+                                    type="audio/wav">
+                                Your browser does not support the audio element.
+                            </audio>
+                            <div class="visualizer">
+                                <!-- Dynamic audio visualizer bars added via JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Track 3 -->
+                    <div class="track-card">
+                        <div class="track-overlay"></div>
+                        <div class="track-details">
+                            <h3 class="track-title">Innovating Better
+                                Worlds</h3>
+                            <p class="track-info">Soundtrack for
+                                horror/adventure game • 2024</p>
+                            <p><strong><em>Rights are reserved - you may not use
+                                        this track</em></strong></p>
+                            <audio controls class="audio-player">
+                                <source src="Innovating Better Worlds.wav"
+                                    type="audio/wav">
+                                Your browser does not support the audio element.
+                            </audio>
+                            <div class="visualizer">
+                                <!-- Dynamic audio visualizer bars added via JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Track 4 -->
+                    <div class="track-card">
+                        <div class="track-overlay"></div>
+                        <div class="track-details">
+                            <h3 class="track-title">The Light</h3>
+                            <p class="track-info">Soundtrack for personal
+                                project • 2025</p>
+                            <p><strong><em>Rights are reserved - you may not use
+                                        this track</em></strong></p>
+                            <audio controls class="audio-player">
+                                <source src="The Light.wav" type="audio/wav">
+                                Your browser does not support the audio element.
+                            </audio>
+                            <div class="visualizer">
+                                <!-- Dynamic audio visualizer bars added via JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Track 5 -->
+                    <div class="track-card">
+                        <div class="track-overlay"></div>
+                        <div class="track-details">
+                            <h3 class="track-title">For The Better</h3>
+                            <p class="track-info">Soundtrack for personal
+                                project • 2025</p>
+                            <p><strong><em>Rights are reserved - you may not use
+                                        this track</em></strong></p>
+                            <audio controls class="audio-player">
+                                <source src="For The Better.wav"
+                                    type="audio/wav">
+                                Your browser does not support the audio element.
+                            </audio>
+                            <div class="visualizer">
+                                <!-- Dynamic audio visualizer bars added via JS -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
-                <p>I'll respond to your message as soon as possible. Looking forward to hearing from you!</p>
             </div>
+        </section>
+
+        <div class="section-divider">
+            <svg viewBox="0 0 1400 150" preserveAspectRatio="none">
+                <path class="wave"
+                    d="M0,64 C300,150 400,0 512,64 C614,128 700,20 900,64 C1100,108 1200,150 1400,100 L1400,370 L0,370 Z"></path>
+            </svg>
         </div>
-    </section>
-    
-    <footer>
-        <div class="container">
-            <p>© 2025 Miel. All Rights Reserved.</p>
-            <div class="social-links">
-                <a href="#" class="social-icon" aria-label="Soundcloud">SC</a>
-                <a href="#" class="social-icon" aria-label="Instagram">IG</a>
-                <a href="#" class="social-icon" aria-label="YouTube">YT</a>
-                <a href="#" class="social-icon" aria-label="Spotify">SP</a>
+
+        <section id="contact" style="background-color: rgba(10, 30, 15, 0.7);">
+            <div class="container">
+                <h2>Connect With Me</h2>
+                <div class="contact-section">
+                    <p class="contact-description">Interested in working
+                        together? Have questions about my music? I'm always open
+                        to new collaborations and exciting projects. Reach out
+                        to me on Discord!</p>
+
+                    <div class="discord-contact">
+                        <img src="/api/placeholder/50/50" alt="Discord Logo"
+                            class="discord-logo">
+                        <div class="discord-username">miel._.</div>
+                    </div>
+
+                    <p>I'll respond to your message as soon as possible. Looking
+                        forward to hearing from you!</p>
+                </div>
             </div>
-        </div>
-    </footer>
-    
-    <script>
+        </section>
+
+        <footer>
+            <div class="container">
+                <p>© 2025 Miel. All Rights Reserved.</p>
+                <div class="social-links">
+                    <a href="#" class="social-icon"
+                        aria-label="Soundcloud">SC</a>
+                    <a href="#" class="social-icon"
+                        aria-label="Instagram">IG</a>
+                    <a href="#" class="social-icon" aria-label="YouTube">YT</a>
+                    <a href="#" class="social-icon" aria-label="Spotify">SP</a>
+                </div>
+            </div>
+        </footer>
+
+        <script>
         // Three.js Background Animation
         const canvas = document.getElementById('bgCanvas');
         const renderer = new THREE.WebGLRenderer({
@@ -839,5 +878,5 @@
             });
         });
     </script>
-</body>
+    </body>
 </html>
