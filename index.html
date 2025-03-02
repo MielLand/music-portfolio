@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music Composer Portfolio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         :root {
             --primary-color: #2e7d32;
@@ -12,6 +13,7 @@
             --dark-color: #1b5e20;
             --text-color: #333;
             --light-text: #f5f5f5;
+            --accent-color: #43a047;
         }
         
         * {
@@ -22,31 +24,63 @@
         }
         
         body {
-            background-color: #fafafa;
-            color: var(--text-color);
+            background-color: #121212;
+            color: #f5f5f5;
             line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
         }
         
         header {
-            background-color: var(--primary-color);
-            color: var(--light-text);
-            padding: 2rem 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             text-align: center;
             position: relative;
+            overflow: hidden;
+        }
+        
+        .header-content {
+            z-index: 10;
+            padding: 2rem;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 1.5s ease-in-out;
+            border: 1px solid rgba(46, 125, 50, 0.3);
+        }
+        
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
+            position: relative;
         }
         
         nav {
-            background-color: var(--dark-color);
+            background-color: rgba(27, 94, 32, 0.9);
+            backdrop-filter: blur(10px);
             padding: 1rem 0;
-            position: sticky;
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
             z-index: 100;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
         
         nav ul {
@@ -64,28 +98,38 @@
             text-decoration: none;
             font-weight: 500;
             font-size: 1.1rem;
-            transition: color 0.3s;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
         }
         
         nav a:hover {
-            color: var(--secondary-color);
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
         }
         
         section {
-            padding: 4rem 0;
+            padding: 8rem 0;
+            position: relative;
         }
         
         h1 {
-            font-size: 3rem;
+            font-size: 4.5rem;
             margin-bottom: 1rem;
+            color: white;
+            text-shadow: 0 0 15px rgba(46, 125, 50, 0.8);
+            font-weight: 700;
+            letter-spacing: 2px;
         }
         
         h2 {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             margin-bottom: 2rem;
-            color: var(--dark-color);
+            color: var(--secondary-color);
             text-align: center;
             position: relative;
+            text-transform: uppercase;
+            letter-spacing: 3px;
         }
         
         h2::after {
@@ -95,6 +139,7 @@
             height: 3px;
             background-color: var(--primary-color);
             margin: 1rem auto;
+            box-shadow: 0 0 10px rgba(46, 125, 50, 0.8);
         }
         
         p {
@@ -102,30 +147,40 @@
             font-size: 1.1rem;
         }
         
-        .hero {
-            text-align: center;
-        }
-        
         .subtitle {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             margin-bottom: 2rem;
-            color: var(--light-text);
+            color: var(--secondary-color);
+            letter-spacing: 1px;
         }
         
         .bio {
             display: flex;
             align-items: center;
-            gap: 3rem;
+            gap: 4rem;
             margin-bottom: 3rem;
             flex-wrap: wrap;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 3rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(46, 125, 50, 0.3);
         }
         
         .bio-image {
-            width: 250px;
-            height: 250px;
+            width: 300px;
+            height: 300px;
             object-fit: cover;
-            border-radius: 50%;
-            border: 5px solid var(--secondary-color);
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            transition: transform 0.5s, box-shadow 0.5s;
+            border: 3px solid var(--accent-color);
+        }
+        
+        .bio-image:hover {
+            transform: scale(1.03) rotate(2deg);
+            box-shadow: 0 20px 40px rgba(46, 125, 50, 0.4);
         }
         
         .bio-text {
@@ -144,176 +199,306 @@
         .skill-category {
             flex: 1;
             min-width: 250px;
-            background-color: white;
+            background-color: rgba(0, 0, 0, 0.6);
             padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(46, 125, 50, 0.3);
+        }
+        
+        .skill-category:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(46, 125, 50, 0.2);
         }
         
         .skill-category h3 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-            font-size: 1.4rem;
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.6rem;
+            text-align: center;
+            letter-spacing: 1px;
         }
         
         .skill-item {
             display: flex;
             align-items: center;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 1.5rem;
         }
         
         .skill-item::before {
-            content: '•';
-            color: var(--primary-color);
-            margin-right: 0.5rem;
-            font-size: 1.2rem;
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            box-shadow: 0 0 8px rgba(46, 125, 50, 0.8);
         }
         
         .tracks {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2.5rem;
         }
         
         .track-card {
-            background-color: white;
-            border-radius: 8px;
+            background-color: rgba(10, 10, 10, 0.8);
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.4s, box-shadow 0.4s;
+            position: relative;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(46, 125, 50, 0.3);
         }
         
         .track-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(46, 125, 50, 0.3);
         }
         
         .track-image {
             width: 100%;
-            height: 180px;
+            height: 220px;
             object-fit: cover;
-            background-color: var(--secondary-color);
+            transition: transform 0.6s;
+            position: relative;
+        }
+        
+        .track-card:hover .track-image {
+            transform: scale(1.05);
+        }
+        
+        .track-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(27, 94, 32, 0.7));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .track-card:hover .track-overlay {
+            opacity: 1;
         }
         
         .track-details {
-            padding: 1.5rem;
+            padding: 1.8rem;
+            position: relative;
         }
         
         .track-title {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            color: var(--dark-color);
+            font-size: 1.6rem;
+            margin-bottom: 0.8rem;
+            color: var(--secondary-color);
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        .track-card:hover .track-title {
+            color: var(--accent-color);
         }
         
         .track-info {
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            color: #666;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            color: #aaa;
+            font-style: italic;
         }
         
-        .play-button {
-            display: inline-block;
-            background-color: var(--primary-color);
+        .audio-player {
+            width: 100%;
+            height: 40px;
+            border-radius: 20px;
+            outline: none;
+            background-color: rgba(27, 94, 32, 0.3);
+            color: var(--accent-color);
+        }
+        
+        .audio-player::-webkit-media-controls-panel {
+            background-color: rgba(10, 10, 10, 0.8);
+        }
+        
+        .audio-player::-webkit-media-controls-current-time-display,
+        .audio-player::-webkit-media-controls-time-remaining-display {
+            color: var(--accent-color);
+        }
+        
+        .contact-section {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 4rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid rgba(46, 125, 50, 0.3);
+        }
+        
+        .discord-contact {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem 0;
+            gap: 1rem;
+            background-color: #5865F2;
+            padding: 1.5rem;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .discord-contact:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(88, 101, 242, 0.4);
+        }
+        
+        .discord-logo {
+            width: 50px;
+            height: 50px;
+        }
+        
+        .discord-username {
+            font-size: 1.8rem;
+            font-weight: 600;
             color: white;
-            padding: 0.5rem 1.5rem;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: background-color 0.3s;
-            border: none;
-            cursor: pointer;
+            letter-spacing: 1px;
         }
         
-        .play-button:hover {
-            background-color: var(--dark-color);
-        }
-        
-        .contact-form {
+        .contact-description {
+            font-size: 1.2rem;
             max-width: 600px;
             margin: 0 auto;
-            padding: 2rem;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-        
-        input, textarea {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-        
-        textarea {
-            min-height: 150px;
-        }
-        
-        .submit-button {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 0.8rem 2rem;
-            font-size: 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .submit-button:hover {
-            background-color: var(--dark-color);
         }
         
         footer {
-            background-color: var(--dark-color);
+            background-color: rgba(10, 10, 10, 0.8);
             color: white;
             text-align: center;
-            padding: 2rem 0;
+            padding: 3rem 0;
             margin-top: 4rem;
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(46, 125, 50, 0.3);
         }
         
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 1.5rem;
-            margin-top: 1rem;
+            gap: 2rem;
+            margin: 1.5rem 0;
         }
         
-        .social-links a {
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: var(--dark-color);
+            border-radius: 50%;
             color: white;
             font-size: 1.5rem;
-            transition: color 0.3s;
+            transition: all 0.3s;
+            text-decoration: none;
         }
         
-        .social-links a:hover {
-            color: var(--secondary-color);
+        .social-icon:hover {
+            transform: translateY(-5px) rotate(10deg);
+            background-color: var(--accent-color);
+            box-shadow: 0 10px 20px rgba(46, 125, 50, 0.4);
         }
         
-        /* Audio player styling */
-        .audio-player {
-            margin-top: 10px;
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);}
+            40% {transform: translateY(-20px) translateX(-50%);}
+            60% {transform: translateY(-10px) translateX(-50%);}
+        }
+        
+        .scroll-arrow {
+            margin-top: 8px;
+            width: 20px;
+            height: 20px;
+            border-right: 3px solid white;
+            border-bottom: 3px solid white;
+            transform: rotate(45deg);
+        }
+        
+        .section-divider {
+            height: 150px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .section-divider svg {
+            position: absolute;
             width: 100%;
+            height: 150px;
+        }
+        
+        /* Wave animation */
+        .wave {
+            animation: wave 3s ease-in-out infinite alternate;
+            fill: var(--dark-color);
+        }
+        
+        @keyframes wave {
+            0% {
+                d: path("M0,64 C300,150 400,0 512,64 C614,128 700,20 900,64 C1100,108 1200,150 1400,100 L1400,370 L0,370 Z");
+            }
+            100% {
+                d: path("M0,64 C200,10 300,100 512,64 C726,28 800,150 900,64 C1000,-22 1300,100 1400,50 L1400,370 L0,370 Z");
+            }
+        }
+        
+        .visualizer {
+            height: 60px;
+            width: 100%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .visualizer-bar {
+            width: 12px;
+            background-color: var(--accent-color);
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(46, 125, 50, 0.8);
+            margin: 0 2px;
         }
         
         /* Responsive design */
         @media (max-width: 768px) {
             h1 {
-                font-size: 2.5rem;
+                font-size: 3rem;
             }
             
             .bio {
                 flex-direction: column;
                 text-align: center;
+                padding: 2rem;
             }
             
             nav ul {
@@ -324,16 +509,23 @@
             nav li {
                 margin: 0.5rem 0;
             }
+            
+            .tracks {
+                grid-template-columns: 1fr;
+            }
+            
+            section {
+                padding: 5rem 0;
+            }
+            
+            .discord-username {
+                font-size: 1.4rem;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Your Name</h1>
-            <p class="subtitle">Music Composer & Producer</p>
-        </div>
-    </header>
+    <canvas id="bgCanvas"></canvas>
     
     <nav>
         <ul>
@@ -344,23 +536,43 @@
         </ul>
     </nav>
     
+    <header id="home">
+        <div class="header-content">
+            <h1>Your Name</h1>
+            <p class="subtitle">Music Composer & Producer</p>
+            <div class="visualizer" id="header-visualizer">
+                <!-- Dynamic audio visualizer bars added via JS -->
+            </div>
+        </div>
+        <div class="scroll-down">
+            <span>Scroll Down</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </header>
+    
     <section id="about">
         <div class="container">
             <h2>About Me</h2>
             <div class="bio">
-                <img src="/api/placeholder/250/250" alt="Profile Picture" class="bio-image">
+                <img src="/api/placeholder/300/300" alt="Profile Picture" class="bio-image">
                 <div class="bio-text">
-                    <p>Welcome to my portfolio! I'm a passionate music composer and producer with a focus on creating memorable and impactful compositions. With a background in [your background], I specialize in [your specialties] and have worked with clients across [industries or types of projects].</p>
+                    <p>Welcome to my portfolio! I'm a passionate music composer and producer with a focus on creating immersive and emotionally resonant soundscapes. My journey in music began [your background story], and I've since developed a distinctive style that blends [your style characteristics].</p>
                     
-                    <p>My approach to music combines technical precision with emotional depth, ensuring each piece communicates exactly what you need. Whether you're looking for a score for your film, game soundtrack, or commercial music, I deliver high-quality work tailored to your vision.</p>
+                    <p>I specialize in [your specialties] and have collaborated with clients across [industries or types of projects]. Each project is an opportunity to push creative boundaries and craft sonic experiences that leave a lasting impression.</p>
                     
-                    <p>I'm always open to exciting new projects and collaborations. Feel free to explore my work and get in touch to discuss how we can work together.</p>
+                    <p>My process involves [brief description of your approach/process], ensuring that every composition not only meets technical standards but also captures the emotional essence of your vision. Whether you're working on a film, game, advertisement, or personal project, I bring dedication and artistry to every note.</p>
                 </div>
             </div>
         </div>
     </section>
     
-    <section id="skills" style="background-color: var(--light-color);">
+    <div class="section-divider">
+        <svg viewBox="0 0 1400 150" preserveAspectRatio="none">
+            <path class="wave" d="M0,64 C300,150 400,0 512,64 C614,128 700,20 900,64 C1100,108 1200,150 1400,100 L1400,370 L0,370 Z"></path>
+        </svg>
+    </div>
+    
+    <section id="skills" style="background-color: rgba(10, 30, 15, 0.7);">
         <div class="container">
             <h2>Skills & Expertise</h2>
             <div class="skills">
@@ -370,6 +582,7 @@
                     <div class="skill-item">Film Scoring</div>
                     <div class="skill-item">Songwriting</div>
                     <div class="skill-item">Theme Development</div>
+                    <div class="skill-item">Adaptive Music</div>
                 </div>
                 
                 <div class="skill-category">
@@ -378,6 +591,7 @@
                     <div class="skill-item">Sound Design</div>
                     <div class="skill-item">Mixing & Mastering</div>
                     <div class="skill-item">Recording Techniques</div>
+                    <div class="skill-item">Spatial Audio</div>
                 </div>
                 
                 <div class="skill-category">
@@ -386,18 +600,26 @@
                     <div class="skill-item">Pro Tools</div>
                     <div class="skill-item">Ableton Live</div>
                     <div class="skill-item">Native Instruments</div>
+                    <div class="skill-item">Waves Plugins</div>
                 </div>
             </div>
         </div>
     </section>
     
+    <div class="section-divider" style="transform: rotate(180deg);">
+        <svg viewBox="0 0 1400 150" preserveAspectRatio="none">
+            <path class="wave" d="M0,64 C300,150 400,0 512,64 C614,128 700,20 900,64 C1100,108 1200,150 1400,100 L1400,370 L0,370 Z"></path>
+        </svg>
+    </div>
+    
     <section id="work">
         <div class="container">
-            <h2>My Work</h2>
+            <h2>Featured Works</h2>
             <div class="tracks">
                 <!-- Track 1 -->
                 <div class="track-card">
-                    <img src="/api/placeholder/300/180" alt="Track 1 Artwork" class="track-image">
+                    <div class="track-overlay"></div>
+                    <img src="/api/placeholder/350/220" alt="Track 1 Artwork" class="track-image">
                     <div class="track-details">
                         <h3 class="track-title">Ethereal Dawn</h3>
                         <p class="track-info">Ambient soundtrack for short film • 2024</p>
@@ -405,12 +627,16 @@
                             <source src="#" type="audio/mpeg">
                             Your browser does not support the audio element.
                         </audio>
+                        <div class="visualizer">
+                            <!-- Dynamic audio visualizer bars added via JS -->
+                        </div>
                     </div>
                 </div>
                 
                 <!-- Track 2 -->
                 <div class="track-card">
-                    <img src="/api/placeholder/300/180" alt="Track 2 Artwork" class="track-image">
+                    <div class="track-overlay"></div>
+                    <img src="/api/placeholder/350/220" alt="Track 2 Artwork" class="track-image">
                     <div class="track-details">
                         <h3 class="track-title">Urban Rhythms</h3>
                         <p class="track-info">Commercial jingle • 2023</p>
@@ -418,12 +644,16 @@
                             <source src="#" type="audio/mpeg">
                             Your browser does not support the audio element.
                         </audio>
+                        <div class="visualizer">
+                            <!-- Dynamic audio visualizer bars added via JS -->
+                        </div>
                     </div>
                 </div>
                 
                 <!-- Track 3 -->
                 <div class="track-card">
-                    <img src="/api/placeholder/300/180" alt="Track 3 Artwork" class="track-image">
+                    <div class="track-overlay"></div>
+                    <img src="/api/placeholder/350/220" alt="Track 3 Artwork" class="track-image">
                     <div class="track-details">
                         <h3 class="track-title">Celestial Journey</h3>
                         <p class="track-info">Game soundtrack • 2023</p>
@@ -431,12 +661,16 @@
                             <source src="#" type="audio/mpeg">
                             Your browser does not support the audio element.
                         </audio>
+                        <div class="visualizer">
+                            <!-- Dynamic audio visualizer bars added via JS -->
+                        </div>
                     </div>
                 </div>
                 
                 <!-- Track 4 -->
                 <div class="track-card">
-                    <img src="/api/placeholder/300/180" alt="Track 4 Artwork" class="track-image">
+                    <div class="track-overlay"></div>
+                    <img src="/api/placeholder/350/220" alt="Track 4 Artwork" class="track-image">
                     <div class="track-details">
                         <h3 class="track-title">Midnight Serenade</h3>
                         <p class="track-info">Original composition • 2022</p>
@@ -444,39 +678,33 @@
                             <source src="#" type="audio/mpeg">
                             Your browser does not support the audio element.
                         </audio>
+                        <div class="visualizer">
+                            <!-- Dynamic audio visualizer bars added via JS -->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     
-    <section id="contact" style="background-color: var(--light-color);">
+    <div class="section-divider">
+        <svg viewBox="0 0 1400 150" preserveAspectRatio="none">
+            <path class="wave" d="M0,64 C300,150 400,0 512,64 C614,128 700,20 900,64 C1100,108 1200,150 1400,100 L1400,370 L0,370 Z"></path>
+        </svg>
+    </div>
+    
+    <section id="contact" style="background-color: rgba(10, 30, 15, 0.7);">
         <div class="container">
-            <h2>Contact Me</h2>
-            <div class="contact-form">
-                <form>
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="subject">Subject</label>
-                        <input type="text" id="subject" name="subject" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" required></textarea>
-                    </div>
-                    
-                    <button type="submit" class="submit-button">Send Message</button>
-                </form>
+            <h2>Connect With Me</h2>
+            <div class="contact-section">
+                <p class="contact-description">Interested in working together? Have questions about my music? I'm always open to new collaborations and exciting projects. Reach out to me on Discord!</p>
+                
+                <div class="discord-contact">
+                    <img src="/api/placeholder/50/50" alt="Discord Logo" class="discord-logo">
+                    <div class="discord-username">miel._.</div>
+                </div>
+                
+                <p>I'll respond to your message as soon as possible. Looking forward to hearing from you!</p>
             </div>
         </div>
     </section>
@@ -485,12 +713,126 @@
         <div class="container">
             <p>© 2025 Your Name. All Rights Reserved.</p>
             <div class="social-links">
-                <a href="#" aria-label="Soundcloud">SC</a>
-                <a href="#" aria-label="Instagram">IG</a>
-                <a href="#" aria-label="YouTube">YT</a>
-                <a href="#" aria-label="Spotify">SP</a>
+                <a href="#" class="social-icon" aria-label="Soundcloud">SC</a>
+                <a href="#" class="social-icon" aria-label="Instagram">IG</a>
+                <a href="#" class="social-icon" aria-label="YouTube">YT</a>
+                <a href="#" class="social-icon" aria-label="Spotify">SP</a>
             </div>
         </div>
     </footer>
+    
+    <script>
+        // Three.js Background Animation
+        const canvas = document.getElementById('bgCanvas');
+        const renderer = new THREE.WebGLRenderer({
+            canvas: canvas,
+            antialias: true
+        });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 5;
+        
+        // Create particles
+        const particleGeometry = new THREE.BufferGeometry();
+        const particleCount = 2000;
+        
+        const positions = new Float32Array(particleCount * 3);
+        const colors = new Float32Array(particleCount * 3);
+        
+        for (let i = 0; i < particleCount * 3; i += 3) {
+            // Position
+            positions[i] = (Math.random() - 0.5) * 50;
+            positions[i + 1] = (Math.random() - 0.5) * 50;
+            positions[i + 2] = (Math.random() - 0.5) * 50;
+            
+            // Color - shades of green
+            colors[i] = 0.1 + Math.random() * 0.2;         // R
+            colors[i + 1] = 0.4 + Math.random() * 0.5;     // G
+            colors[i + 2] = 0.1 + Math.random() * 0.2;     // B
+        }
+        
+        particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        particleGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+        
+        const particleMaterial = new THREE.PointsMaterial({
+            size: 0.05,
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.8
+        });
+        
+        const particles = new THREE.Points(particleGeometry, particleMaterial);
+        scene.add(particles);
+        
+        // Create music visualizer bars in header
+        const headerVisualizer = document.getElementById('header-visualizer');
+        for (let i = 0; i < 20; i++) {
+            const bar = document.createElement('div');
+            bar.classList.add('visualizer-bar');
+            bar.style.height = `${Math.random() * 40 + 5}px`;
+            headerVisualizer.appendChild(bar);
+        }
+        
+        // Create music visualizer bars in track cards
+        const trackVisualizers = document.querySelectorAll('.track-card .visualizer');
+        trackVisualizers.forEach(visualizer => {
+            for (let i = 0; i < 15; i++) {
+                const bar = document.createElement('div');
+                bar.classList.add('visualizer-bar');
+                bar.style.height = `${Math.random() * 30 + 5}px`;
+                visualizer.appendChild(bar);
+            }
+        });
+        
+        // Animate visualizer bars
+        function animateVisualizers() {
+            const allBars = document.querySelectorAll('.visualizer-bar');
+            allBars.forEach(bar => {
+                const newHeight = Math.random() * 40 + 5;
+                bar.style.height = `${newHeight}px`;
+                bar.style.transition = 'height 0.2s ease';
+            });
+            
+            setTimeout(animateVisualizers, 300);
+        }
+        
+        // Animate Three.js scene
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            particles.rotation.x += 0.0003;
+            particles.rotation.y += 0.0005;
+            
+            renderer.render(scene, camera);
+        }
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+        
+        animate();
+        animateVisualizers();
+        
+        // Smooth scrolling for navigation
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
