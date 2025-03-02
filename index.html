@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Composer Portfolio</title>
+    <style>
+        :root {
+            --primary-color: #2e7d32;
+            --secondary-color: #a5d6a7;
+            --light-color: #f1f8e9;
+            --dark-color: #1b5e20;
+            --text-color: #333;
+            --light-text: #f5f5f5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #fafafa;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        nav {
+            background-color: var(--dark-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+        
+        nav li {
+            margin: 0 1.5rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--secondary-color);
+        }
+        
+        section {
+            padding: 4rem 0;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        h2 {
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            color: var(--dark-color);
+            text-align: center;
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
+            margin: 1rem auto;
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .hero {
+            text-align: center;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--light-text);
+        }
+        
+        .bio {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .bio-image {
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid var(--secondary-color);
+        }
+        
+        .bio-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .skills {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .skill-category {
+            flex: 1;
+            min-width: 250px;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .skill-category h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+        
+        .skill-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .skill-item::before {
+            content: '•';
+            color: var(--primary-color);
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .tracks {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .track-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .track-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .track-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background-color: var(--secondary-color);
+        }
+        
+        .track-details {
+            padding: 1.5rem;
+        }
+        
+        .track-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+        
+        .track-info {
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .play-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .play-button:hover {
+            background-color: var(--dark-color);
+        }
+        
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        textarea {
+            min-height: 150px;
+        }
+        
+        .submit-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .submit-button:hover {
+            background-color: var(--dark-color);
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        /* Audio player styling */
+        .audio-player {
+            margin-top: 10px;
+            width: 100%;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .bio {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav li {
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Your Name</h1>
+            <p class="subtitle">Music Composer & Producer</p>
+        </div>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#work">Work</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <section id="about">
+        <div class="container">
+            <h2>About Me</h2>
+            <div class="bio">
+                <img src="/api/placeholder/250/250" alt="Profile Picture" class="bio-image">
+                <div class="bio-text">
+                    <p>Welcome to my portfolio! I'm a passionate music composer and producer with a focus on creating memorable and impactful compositions. With a background in [your background], I specialize in [your specialties] and have worked with clients across [industries or types of projects].</p>
+                    
+                    <p>My approach to music combines technical precision with emotional depth, ensuring each piece communicates exactly what you need. Whether you're looking for a score for your film, game soundtrack, or commercial music, I deliver high-quality work tailored to your vision.</p>
+                    
+                    <p>I'm always open to exciting new projects and collaborations. Feel free to explore my work and get in touch to discuss how we can work together.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="skills" style="background-color: var(--light-color);">
+        <div class="container">
+            <h2>Skills & Expertise</h2>
+            <div class="skills">
+                <div class="skill-category">
+                    <h3>Composition</h3>
+                    <div class="skill-item">Orchestral Arrangement</div>
+                    <div class="skill-item">Film Scoring</div>
+                    <div class="skill-item">Songwriting</div>
+                    <div class="skill-item">Theme Development</div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Production</h3>
+                    <div class="skill-item">Digital Audio Workstations</div>
+                    <div class="skill-item">Sound Design</div>
+                    <div class="skill-item">Mixing & Mastering</div>
+                    <div class="skill-item">Recording Techniques</div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Software & Tools</h3>
+                    <div class="skill-item">Logic Pro X</div>
+                    <div class="skill-item">Pro Tools</div>
+                    <div class="skill-item">Ableton Live</div>
+                    <div class="skill-item">Native Instruments</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="work">
+        <div class="container">
+            <h2>My Work</h2>
+            <div class="tracks">
+                <!-- Track 1 -->
+                <div class="track-card">
+                    <img src="/api/placeholder/300/180" alt="Track 1 Artwork" class="track-image">
+                    <div class="track-details">
+                        <h3 class="track-title">Ethereal Dawn</h3>
+                        <p class="track-info">Ambient soundtrack for short film • 2024</p>
+                        <audio controls class="audio-player">
+                            <source src="#" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+                
+                <!-- Track 2 -->
+                <div class="track-card">
+                    <img src="/api/placeholder/300/180" alt="Track 2 Artwork" class="track-image">
+                    <div class="track-details">
+                        <h3 class="track-title">Urban Rhythms</h3>
+                        <p class="track-info">Commercial jingle • 2023</p>
+                        <audio controls class="audio-player">
+                            <source src="#" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+                
+                <!-- Track 3 -->
+                <div class="track-card">
+                    <img src="/api/placeholder/300/180" alt="Track 3 Artwork" class="track-image">
+                    <div class="track-details">
+                        <h3 class="track-title">Celestial Journey</h3>
+                        <p class="track-info">Game soundtrack • 2023</p>
+                        <audio controls class="audio-player">
+                            <source src="#" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+                
+                <!-- Track 4 -->
+                <div class="track-card">
+                    <img src="/api/placeholder/300/180" alt="Track 4 Artwork" class="track-image">
+                    <div class="track-details">
+                        <h3 class="track-title">Midnight Serenade</h3>
+                        <p class="track-info">Original composition • 2022</p>
+                        <audio controls class="audio-player">
+                            <source src="#" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="contact" style="background-color: var(--light-color);">
+        <div class="container">
+            <h2>Contact Me</h2>
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-button">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>© 2025 Your Name. All Rights Reserved.</p>
+            <div class="social-links">
+                <a href="#" aria-label="Soundcloud">SC</a>
+                <a href="#" aria-label="Instagram">IG</a>
+                <a href="#" aria-label="YouTube">YT</a>
+                <a href="#" aria-label="Spotify">SP</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
